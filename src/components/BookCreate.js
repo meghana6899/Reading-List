@@ -1,32 +1,28 @@
-import {useState} from 'react';
+import { useState } from 'react';
 
+function BookCreate({ onCreate }) {
+  const [title, setTitle] = useState('');
 
-import useBooksContext from '../hooks/use-books-context';
+  const handleChange = (event) => {
+    setTitle(event.target.value);
+  };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    onCreate(title);
+    setTitle('');
+  };
 
-function BookCreate() {
-    const [title, setTitle] = useState('');
-    const { createBook} = useBooksContext();
-    const handleChange = (event) => {  
-        setTitle(event.target.value) ;
-    };
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        createBook(title);
-        setTitle('');
-    };
-
-    return ( 
+  return (
     <div className="book-create">
-        <h3>Add a Book</h3>
-        <form onSubmit={handleSubmit}>
-            <label>Title</label>
-            <input className="input" value={title} onChange={handleChange} />
-            <button className='button'>Submit!</button>
-        </form>
+      <h3>Add a Book</h3>
+      <form onSubmit={handleSubmit}>
+        <label>Title</label>
+        <input className="input" value={title} onChange={handleChange} />
+        <button className="button">Create!</button>
+      </form>
     </div>
-    );
-};
+  );
+}
 
 export default BookCreate;
